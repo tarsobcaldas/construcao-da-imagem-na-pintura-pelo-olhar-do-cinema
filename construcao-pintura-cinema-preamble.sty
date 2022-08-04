@@ -1,0 +1,342 @@
+\RequirePackage{graphicx}
+\RequirePackage{calc}
+\RequirePackage{xpatch}
+\RequirePackage{pagecolor}
+\RequirePackage{afterpage}
+
+
+\RequirePackage[main=brazilian,english]{babel}
+\babelprovide[transforms = hyphen.repeat]{brazilian}
+\addto\captionsbrazilian{%
+	\renewcommand{\appendixname}{Apêndice}%
+	\renewcommand{\contentsname}{Sumário}%
+	\renewcommand{\bibname}{Referências}%
+}
+
+\RequirePackage{siunitx}
+\RequirePackage[style=apa]{biblatex}
+\addbibresource{construcao-pintura-cinema.bib}
+\xpatchbibmacro{textcite}{\addspace}{\addnbspace}{}{}
+
+\RequirePackage{enumitem}
+\RequirePackage{microtype}
+\RequirePackage{fontspec}
+\setmainfont{Minion Pro}
+\setsansfont{Ubuntu}[BoldFont = Ubuntu-Medium]
+\newfontfamily{\titlefont}{Mystery Quest-Regular.ttf}
+\newfontfamily{\titleauthorfont}{Hitchcock}
+\newcommand{\titlefontsize}{\fontsize{35}{45.5}}
+
+\RequirePackage{tikz}
+\RequirePackage{adjustbox}
+\RequirePackage{csquotes}
+\SetCiteCommand{\parencite}
+
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xurl}
+
+\RequirePackage{hyperref}
+\RequirePackage[capitalise, brazilian, nameinlink]{cleveref}
+\hypersetup{hidelinks}
+
+\RequirePackage{acronym}
+\patchcmd\@acf{\AC@acl}{\AC@foo}{}{}
+\patchcmd\@acf{\AC@acl}{\AC@foo}{}{}
+\patchcmd\@acf{\AC@foo}{\hskip\z@\AC@acl}{}{}
+\patchcmd\@acf{\AC@foo}{\hskip\z@\AC@acl}{}{}
+
+\graphicspath{{figuras}}
+
+\newcommand{\listquadroname}{Lista de quadros}
+\newcommand{\quadroname}{Quadro}
+\newcommand{\quadrorefname}{Quadro}
+\newcommand{\chartautorefname}{Quadro}
+\newlistof{listofquadros}{loq}{\listquadroname}
+
+% código retirado de https://tex.stackexchange.com/questions/572654/how-might-the-longtable-environment-have-to-be-modified-to-create-a-longquadro-e
+\newcounter{quadro}
+\newfloat{quadro}{loq}{Quadro}
+\newlistentry{quadro}{loq}{0}
+
+\renewcommand{\fps@figure}{!htb}
+\renewcommand{\fps@table}{!htb}
+\renewcommand{\fps@quadro}{!htb}
+
+% #1 = autor
+% #2 = nome da pintura
+% #3 = ano
+\newcommand{\artname}[3]{#1.\space#2,\space#3.}
+\newcommand{\artsize}[1]{\qtyproduct{#1}{\cm}}
+\newcommand{\series}[1]{Série\space #1}
+
+\newcommand{\odette}{Odette Boudet}
+\newcommand{\oleo}{Óleo sobre tela}
+\newcommand{\oil}{Oil in canvas}
+\newcommand{\acrilico}{Acrílico sobre tela}
+\newcommand{\acrylic}{Acrylic in canvas}
+\newcommand{\oleolinho}{Óleo sobre linho}
+\newcommand{\photoreg}{Registro fotográfico da autora}
+\newcommand{\archivef}{Arquivo da autora}
+\newcommand{\archivem}{Arquivo do autor}
+
+\setstocksize{297mm}{210mm}
+\settrimmedsize{297mm}{210mm}{*}
+
+\setlength{\footskip}{0pt}
+
+\setulmarginsandblock{4cm}{3.5cm}{1}
+\setlrmarginsandblock{3.5cm}{2cm}{1}
+
+
+\checkandfixthelayout%
+
+\setlength{\headheight}{5.5mm}
+\setlength{\headsep}{8.8mm}
+\setlength{\footskip}{8mm}
+
+\nouppercaseheads%
+\makeevenhead{headings}{\emph{\leftmark}}{}{}
+\makeoddhead{headings}{}{}{\emph{\rightmark}}
+\makeevenfoot{headings}{\thepage}{}{}
+\makeoddfoot{headings}{}{}{\thepage}
+\makeheadrule{headings}{\textwidth}{.2pt}
+
+\copypagestyle{abstract}{headings}
+\makeheadrule{abstract}{0pt}{0pt}
+
+\copypagestyle{introducao}{headings}
+\makeevenhead{introducao}{\emph{Introdução}}{}{}
+\makeoddhead{introducao}{}{}{\emph{Introdução}}
+
+
+\renewcommand{\huge}{\fontsize{20}{25}\selectfont}
+\renewcommand{\normalsize}{\fontsize{11}{13}\selectfont}
+\renewcommand{\large}{\fontsize{13}{15}\selectfont}
+
+% \frenchspacing
+\setlength{\parindent}{1em} 
+\setlength{\parskip}{0pt plus 2pt minus 1pt} 
+\setlength{\baselineskip}{1.5cm plus 2pt minus 1pt}
+
+\setlength{\footmarkwidth}{0em}
+\setlength{\footmarksep}{0em}
+\setlength{\footparindent}{0em}
+\renewcommand*{\@makefnmark}{\hbox{\textsuperscript{\scriptsize\@thefnmark}}}
+
+
+\renewcommand{\pfbreakdisplay}{}
+\feetbelowfloat
+% \g@addto@macro\@floatboxreset\centering
+\renewcommand{\fps@figure}{!htb}
+\renewcommand{\fps@table}{!htb}
+\renewcommand{\fps@quadro}{!htb}
+
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+
+\captionsetup{
+	labelsep = newline,
+	justification = raggedright,
+	singlelinecheck = false,
+	labelfont = {bf},
+	textfont = {small, it}
+}
+
+\newcommand{\figurenote}{\caption*}
+\newcommand{\tablenote}{\caption*}
+
+
+% divisions definitions
+\renewcommand{\chapnamefont}{\huge\sffamily}
+\renewcommand{\chaptitlefont}{\huge\sffamily\bfseries}
+\renewcommand{\chapnumfont}{\huge\sffamily}
+
+\setsecheadstyle{\flushleft\large\sffamily\bfseries\MakeUppercase}
+\setsecnumformat{\csname the#1\endcsname\space}
+
+\setsubsecheadstyle{\flushleft\large\sffamily\MakeUppercase}
+\setsubsubsecheadstyle{\flushleft\large\sffamily\MakeUppercase}
+
+\setparaheadstyle{\scshape}
+\setafterparaskip{-.2777em}
+\setlength{\beforeparaskip}{3pt}
+
+\renewcommand*{\cftappendixname}{\appendixname\ }
+
+\pretitle{%
+	\center
+	\huge\vfill}
+\posttitle{\par
+	\endcenter
+	\vfill}
+
+\preauthor{
+	\center
+	\Large}
+\postauthor{
+	\normalsize
+}
+
+\newcommand{\orientador}{\def\@orientador}
+\newcommand{\coorientador}{\def\@coorientador}
+\newcommand{\curso}{\def\@curso}
+\newcommand{\local}{\def\@location}
+\newcommand{\descricaodotrabalho}{\def\@workdescription}
+
+\newcommand{\titlepage}{
+	{
+      \cleardoublepage
+			\centering
+			\includegraphics[width=5cm]{figuras/logo-uporto.pdf}
+			\renewcommand{\and}{\\ }
+			\sffamily
+			\setlength{\droptitle}{-3.5em}
+			\vspace*{\droptitle}
+			\@bspretitle
+			{\@title}
+			\@bsposttitle
+			\@bspreauthor
+			{\@author}
+			\@bspostauthor
+      \vfill\leavevmode\vfill
+			\begin{center}
+        \vspace{\baselineskip}
+				% \begin{minipage}{.6\linewidth}
+					\@workdescription\par
+					\vspace*{2em}
+					Orientadora: \@orientador\par
+					\vspace{.25em}
+					Coorientadora: \@coorientador
+				% \end{minipage}
+			\end{center}
+			\vfill
+			\begin{center}
+				\@curso\par
+				\@location,\space\the\year\par
+			\end{center}
+			\thispagestyle{empty}
+      \clearpage
+		}
+
+
+\checkandfixthelayout%
+
+}
+
+
+\newcommand{\onepagecolor}[1]{%
+  \newpagecolor{#1}\afterpage{\restorepagecolor}
+}
+
+\newcommand{\cover}{
+	{
+    \onepagecolor{black}
+    \color{white}
+			\includegraphics[width=6cm]{figuras/logouporto-branco.pdf}
+
+			\vspace{10em}
+      \flushleft
+      \begin{minipage}{.7\linewidth}
+        \flushleft
+			{\titlefontsize\titlefont\@title}
+      \end{minipage}
+      \flushleft
+
+      \vfill
+
+      {\normalsize\titleauthorfont\@author\hfill \small\@location,\space\the\year\par}
+			\thispagestyle{empty}
+      \clearpage
+		}
+}
+
+
+
+% Definitions of toc
+\setsecnumdepth{subsection}
+\maxsecnumdepth{subsection}
+\settocdepth{subsection}
+\maxtocdepth{subsection}
+\renewcommand{\printtoctitle}{\chaptitlefont}
+\renewcommand{\printloftitle}{\chaptitlefont}
+\renewcommand{\printloqtitle}{\chaptitlefont}
+\renewcommand{\cftchapterfont}{\large\sffamily\bfseries}
+\renewcommand{\cftchapterbreak}{\addpenalty{-4000}}
+\renewcommand{\cftchapterpagefont}{\large\sffamily\bfseries}
+\renewcommand{\cftchapteraftersnum}{.}
+\renewcommand{\cftsectionfont}{\sffamily\small}
+\renewcommand{\cftsectionpagefont}{\sffamily\small}
+\renewcommand{\cftsubsectionfont}{\sffamily\footnotesize}
+\renewcommand{\cftsubsectionpagefont}{\sffamily\footnotesize}
+\renewcommand{\cftfigurefont}{\sffamily\small}
+\renewcommand{\cftfigurepagefont}{\sffamily\small}
+\renewcommand{\cfttablefont}{\sffamily\small}
+\renewcommand{\cfttablepagefont}{\sffamily\small}
+\renewcommand{\cftquadrofont}{\sffamily\small}
+\renewcommand{\cftquadropagefont}{\sffamily\small}
+\setlength{\cftbeforesectionskip}{.5em}
+\setlength{\cftbeforechapterskip}{2em plus 0.3em minus 0.2em}
+\renewcommand{\cftdot}{}
+\setpnumwidth{2.55em}
+\setrmarg{3.55em}
+\let\oldcftchapterfont\cftchapterfont%
+\renewcommand{\aftertoctitle}{\thispagestyle{empty}\afterchaptertitle}
+
+\makechapterstyle{companion}
+
+
+% Alinhamento à esquerda dos itens da toc 
+% https://tex.stackexchange.com/questions/283730/left-align-toc-items-when-using-tableofcontents
+\bgroup%
+\advance\@flushglue by \@tocrmarg%
+\xdef\@tocrmarg{\the\@flushglue}%
+\egroup%
+
+% \settocpreprocessor{chapter}{%
+%   \@ifpackageloaded{hyperref}{%
+% 	\let\tempf@rtoc\f@rtoc%
+% 	\def\f@rtoc{%
+% 		\texorpdfstring{\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
+%   }{}
+% }
+\def\clearforchapter{\clearpage
+	\if@twoside%
+		\ifodd%
+			\c@page
+		\else
+			\hbox{}\vfill
+			\begin{center}
+        \emph{Página deixada em branco intencionalmente.}
+			\end{center}
+			\vfill \thispagestyle{cleared}%
+			\newpage
+			\if@twocolumn%
+				\hbox{}\newpage
+			\fi%
+		\fi%
+	\fi%
+}\makeatother
+
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
+
+\newenvironment{authornote}{
+	{\sffamily\large\bfseries\itshape Notas}\par\vspace{\aftersecskip}
+	\itshape%
+	\begin{flushbottom}
+		\thispagestyle{empty}
+		}{
+	\end{flushbottom}
+	\par\normalfont
+}
+
+\renewcommand{\absnamepos}{flushleft}
+\setlength{\absrightindent}{0pt}
+\setlength{\absleftindent}{0pt}
+
+\renewcommand{\abstractnamefont}{\sffamily\large\bfseries}
+
+
+\newcommand{\hiperlink}[2]{#2 (\url{#1})}

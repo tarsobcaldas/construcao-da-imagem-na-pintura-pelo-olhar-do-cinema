@@ -1,0 +1,49 @@
+% arara: lualatex
+
+\documentclass[12pt]{memoir}
+
+\usepackage{construcao-pintura-cinema-preamble}
+\usepackage{blucher-arroz-post-production}
+
+\title{A Construção da Imagem na Pintura pelo Olhar do Cinema}
+\author{Odette de Queiroz Boudet Fernandes}
+\local{Porto}
+\curso{Faculdade de Belas Artes da Universidade do Porto}
+\descricaodotrabalho{Dissertação para obtenção de grau de Mestre em Artes Plásticas \\ Especialização em Pintura}
+\orientador{Professora Doutora Joana Rêgo}
+\coorientador{Professora Doutora India Mara Martins}
+
+
+\begin{document}
+
+\selectlanguage{brazilian}
+
+\frontmatter
+
+\include{frontmatter}
+
+\mainmatter
+
+\counterwithout{figure}{chapter}
+\counterwithout{figure}{chapter}
+\counterwithout{footnote}{chapter}
+
+\include{introducao}
+\include{cap1-contexto-relacao-cinema-pintura}
+\include{cap2-impacto-evolucao-otica}
+\include{cap3-narrativa-visual}
+\include{cap4-entre-projeto-processo}
+
+{
+  \backmatter
+
+  \include{backmatter}
+}
+
+\appendix
+
+\setcounter{figure}{60}
+
+\include{apendices}
+
+\end{document}

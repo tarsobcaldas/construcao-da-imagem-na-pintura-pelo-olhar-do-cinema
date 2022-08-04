@@ -1,0 +1,26 @@
+\documentclass[tikz]{standalone}
+
+
+\begin{document}
+
+\node (MR) {Mundo real}
+  child {node [descricao] {É o local tridimensional em que vivemos e habitamos todos os dias}};
+
+\node (MT) [below of=MR] {Mundo da tela}
+  child {node [text width = 3cm] {Refere-se às telas bidimensionais onde assitimos imagens}
+    child (AT) {node [descricao] {O mundo da imagem da alta tecnologia que criamos com câmeras e computadores}}
+		child (BT) {node [descricao] {O mundo da imagem da baixa tecnologia que criamos com lápis e pincéis}
+    }
+	};
+
+\node (PI) [below of=MT] {Plano da imagem}
+  child {node [descricao] {O plano da imagem é uma janela bidimensional imaginária. \\ Seu tamanho depende da distância da cena à câmera}
+    child {node [descricao] {Toda tela é um plano de imagem. As proporções variam de acordo com o contexto.}}
+  }
+  child {node {Planos}
+    child {node {Primeiro Plano (FG)}}
+    child {node {Plano Intermediário (MG)}}
+    child {Plano de Fundo (BG)}
+  };
+
+\end{document}
