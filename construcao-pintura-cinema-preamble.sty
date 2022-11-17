@@ -1,3 +1,5 @@
+% LTeX: enabled=false
+
 \RequirePackage{graphicx}
 \RequirePackage{calc}
 \RequirePackage{xpatch}
@@ -21,13 +23,16 @@
 \RequirePackage{enumitem}
 \RequirePackage{microtype}
 \RequirePackage{fontspec}
-\setmainfont{Minion Pro}
+\setmainfont{MinionPro}
 \setsansfont{Ubuntu}[BoldFont = Ubuntu-Medium]
 \newfontfamily{\titlefont}{Mystery Quest-Regular.ttf}
 \newfontfamily{\titleauthorfont}{Hitchcock}
 \newcommand{\titlefontsize}{\fontsize{35}{45.5}}
 
+
 \RequirePackage{tikz}
+\RequirePackage{tikzpagenodes}
+
 \RequirePackage{adjustbox}
 \RequirePackage{csquotes}
 \SetCiteCommand{\parencite}
@@ -165,14 +170,14 @@
 \renewcommand*{\cftappendixname}{\appendixname\ }
 
 \pretitle{%
-	\center
+	\center%
 	\huge\vfill}
 \posttitle{\par
-	\endcenter
+	\endcenter%
 	\vfill}
 
 \preauthor{
-	\center
+	\center%
 	\Large}
 \postauthor{
 	\normalsize
@@ -185,70 +190,26 @@
 \newcommand{\descricaodotrabalho}{\def\@workdescription}
 
 \newcommand{\titlepage}{
-	{
-      \cleardoublepage
-			\centering
-			\includegraphics[width=5cm]{figuras/logo-uporto.pdf}
-			\renewcommand{\and}{\\ }
-			\sffamily
-			\setlength{\droptitle}{-3.5em}
-			\vspace*{\droptitle}
-			\@bspretitle
-			{\@title}
-			\@bsposttitle
-			\@bspreauthor
-			{\@author}
-			\@bspostauthor
-      \vfill\leavevmode\vfill
-			\begin{center}
-        \vspace{\baselineskip}
-				% \begin{minipage}{.6\linewidth}
-					\@workdescription\par
-					\vspace*{2em}
-					Orientadora: \@orientador\par
-					\vspace{.25em}
-					Coorientadora: \@coorientador
-				% \end{minipage}
-			\end{center}
-			\vfill
-			\begin{center}
-				\@curso\par
-				\@location,\space\the\year\par
-			\end{center}
-			\thispagestyle{empty}
-      \clearpage
-		}
-
-
-\checkandfixthelayout%
-
+  \cleardoublepage
+  \thispagestyle{empty}
+  \setcounter{page}{1}
+  \begin{tikzpicture}[overlay, remember picture]
+    \node [anchor=center] at (current page.center) {\includegraphics{folha-rosto.pdf}};
+    \node [anchor=center] at ($(current page.north) + (.25cm,-5cm)$) {\includegraphics[width = 5cm]{logo-uporto.pdf}};
+  \end{tikzpicture}
+  \clearpage
+  \checkandfixthelayout%
 }
 
 
-\newcommand{\onepagecolor}[1]{%
-  \newpagecolor{#1}\afterpage{\restorepagecolor}
-}
+\usetikzlibrary{calc}
 
 \newcommand{\cover}{
-	{
-    \onepagecolor{black}
-    \color{white}
-			\includegraphics[width=6cm]{figuras/logouporto-branco.pdf}
-
-			\vspace{10em}
-      \flushleft
-      \begin{minipage}{.7\linewidth}
-        \flushleft
-			{\titlefontsize\titlefont\@title}
-      \end{minipage}
-      \flushleft
-
-      \vfill
-
-      {\normalsize\titleauthorfont\@author\hfill \small\@location,\space\the\year\par}
-			\thispagestyle{empty}
-      \clearpage
-		}
+  \begin{tikzpicture}[overlay, remember picture]
+    \node [anchor=center] at (current page.center) {\includegraphics{capa.pdf}};
+    \node [anchor=center] at ($(current page.south) + (.75cm, 3cm)$) {\includegraphics[width = 4cm]{logo-uporto.pdf}};
+  \end{tikzpicture}
+  \clearpage
 }
 
 
@@ -285,6 +246,7 @@
 
 \makechapterstyle{companion}
 
+\renewcommand\chapternamenum{~}%
 
 % Alinhamento à esquerda dos itens da toc 
 % https://tex.stackexchange.com/questions/283730/left-align-toc-items-when-using-tableofcontents
@@ -340,3 +302,16 @@
 
 
 \newcommand{\hiperlink}[2]{#2 (\url{#1})}
+
+\makepagenote
+\notepageref
+\continuousnotenums
+
+
+\renewcommand{\notesname}{Textos originais}
+\renewcommand{\pagerefname}{p.}
+\renewcommand{\thepagenote}{\alph{pagenote}}
+\renewcommand{\pagenotesubhead}[3]{}
+\newcommand{\originaltext}{\pagenote}
+
+\renewcommand{\notedivision}{\chapter{\notesname}\label{sec:textos-originais}}
